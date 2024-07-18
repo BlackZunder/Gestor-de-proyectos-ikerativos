@@ -19,3 +19,13 @@ class RegisterModelForm(UserCreationForm):
     class Meta:
         model = CustomUser 
         fields = ("username", "password1", "password2")
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={'placeholder': 'Nombre de usuario'}),
+)
+    password = forms.CharField(
+        label='',
+        widget=forms.PasswordInput(attrs={'placeholder': 'Ingrese su contraseña'}),
+    )
