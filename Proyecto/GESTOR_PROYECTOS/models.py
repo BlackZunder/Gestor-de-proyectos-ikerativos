@@ -23,7 +23,7 @@ class CustomUser(AbstractUser):
         verbose_name='user permissions',
     )
 
-class Tareas(models.Model):
+class Tarea(models.Model):
     ESTADO_CHOICES = [
         ('no_iniciado', 'No Iniciado'),
         ('en_proceso', 'En Proceso'),
@@ -32,17 +32,17 @@ class Tareas(models.Model):
     
     nombre=models.CharField(max_length=50)
     estado = models.CharField(max_length=50, choices=ESTADO_CHOICES, default='no_iniciado')    
-    descripcion=models.CharField(max_length=50)
-    personas=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    descripcion=models.TextField()
+    personas=models.ManyToManyField(CustomUser)
+    proyecto = models.ForeignKey('Proyecto', related_name='tareas', on_delete=models.CASCADE)  # Añadido
 
 
 
-class Proyectos(models.Model):
+class Proyecto(models.Model):
     nombre=models.CharField(max_length=50)
     descripcion=models.CharField(max_length=50)
     finalizado=models.BooleanField(default=False)
-    personas=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    tareas=models.ManyToManyField(Tareas)
+    personas=models.ManyToManyField(CustomUser)
     
 
     

@@ -1,0 +1,9 @@
+
+<h2>Proyectos Disponibles</h2>
+<ul>
+    {% for proyecto in proyectos %}
+    <li>
+        <a href="{% url 'detalle_proyecto' proyecto.id %}">{{ proyecto.nombre }}</a>
+    </li>
+    {% endfor %}
+</ul>

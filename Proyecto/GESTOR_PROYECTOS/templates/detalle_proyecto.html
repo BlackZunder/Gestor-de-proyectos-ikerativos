@@ -1,0 +1,18 @@
+
+<h2>Tareas del Proyecto: {{ proyecto.nombre }}</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Nombre de la Tarea</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tarea in tareas %}
+        <tr>
+            <td>{{ tarea.nombre }}</td>
+            <td>{{ tarea.estado }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
