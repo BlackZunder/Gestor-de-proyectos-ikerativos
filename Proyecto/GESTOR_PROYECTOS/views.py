@@ -27,11 +27,17 @@ class CustomLoginView(LoginView):
     
 @login_required
 def lista_proyectos(request):
+    query = request.GET.get("q")  # Paso 1: Captura el término de búsqueda
     proyectos = Proyecto.objects.all()
-    return render(request, 'lista_proyectos.html', {'proyectos': proyectos})
+    if query:
+        proyectos = proyectos.filter(nombre__icontains=query)  # Paso 2: Filtra los proyectos
+    return render(request, 'lista_proyectos.html', {'proyectos': proyectos})  # Paso 3: Pasa los proyectos filtrados
 
 @login_required
 def detalle_proyecto(request, proyecto_id):
     proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
     tareas = proyecto.tareas.all()
-    return render(request, 'detalle_proyecto.html', {'proyecto': proyecto, 'tareas': tareas})
+    query = request.GET.get("q")  # Captura el término de búsqueda
+    if query:
+        tareas = tareas.filter(nombre__icontains=query)  # Filtra las tareas
+    return render(request, 'detalle_proyecto.html', {'proyecto': proyecto, 'tareas': tareas})  #  Pasa las tareas filtradas

@@ -1,9 +1,20 @@
+{% extends "base.html" %}
 
+{% block content %}
 <h2>Proyectos Disponibles</h2>
+
+<!-- Formulario de búsqueda -->
+<form method="get" action="">
+    <input type="text" name="q" placeholder="Buscar proyectos..." value="{{ request.GET.q }}" aria-label="Buscar proyectos">
+    <button type="submit">Buscar</button>
+</form>
+
 <ul>
     {% for proyecto in proyectos %}
     <li>
         <a href="{% url 'detalle_proyecto' proyecto.id %}">{{ proyecto.nombre }}</a>
+        <p>{{ proyecto.descripcion }}</p> <!-- Añadir descripción aquí -->
     </li>
     {% endfor %}
 </ul>
+{% endblock %}

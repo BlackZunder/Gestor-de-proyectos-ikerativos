@@ -1,9 +1,16 @@
+{% extends "base.html" %}
 
+{% block content %}
 <h2>Tareas del Proyecto: {{ proyecto.nombre }}</h2>
+<form method="get" action="">
+    <input type="text" name="q" placeholder="Buscar tareas..." value="{{ request.GET.q }}">
+    <button type="submit">Buscar</button>
+</form>
 <table>
     <thead>
         <tr>
             <th>Nombre de la Tarea</th>
+            <th>Proyecto</th> <!-- Columna añadida para el proyecto -->
             <th>Estado</th>
         </tr>
     </thead>
@@ -11,8 +18,10 @@
         {% for tarea in tareas %}
         <tr>
             <td>{{ tarea.nombre }}</td>
+            <td>{{ tarea.proyecto.nombre }}</td> <!-- Mostrar el nombre del proyecto asociado -->
             <td>{{ tarea.estado }}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestor de proyectos</title>
+</head>
+<body>
+    <nav>
+        <a href="#" style="font-size:24px; font-weight:bold; color: #333;">Ikr3ativos</a>
+        <a href="http://127.0.0.1:8000/proyectos/" style="margin-left: 20px;">Inicio</a>
+        <a href="http://127.0.0.1:8000/proyectos/" style="margin-left: 10px;">Proyectos</a>
+        <!-- Mostrar el nombre del usuario si ha iniciado sesión -->
+        {% if user.is_authenticated %}
+            <span style="margin-left: 20px;">Usuario: {{ user.username }}</span>
+        {% endif %}
+    </nav>
+
+    {% block content %}
+    <!-- Insertar contenido nuevo -->
+    {% endblock %}
+</body>
+</html>

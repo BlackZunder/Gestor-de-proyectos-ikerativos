@@ -19,6 +19,7 @@ from django.urls import path
 from GESTOR_PROYECTOS.views import CustomLoginView,register,lista_proyectos,detalle_proyecto
 
 urlpatterns = [
+    path('', CustomLoginView.as_view(), name='home'), 
     path("admin/", admin.site.urls),
     path('accounts/login/', CustomLoginView.as_view(), name='login'),
     path('register/', register, name='register'),

@@ -44,6 +44,3 @@ class Proyecto(models.Model):
     finalizado=models.BooleanField(default=False)
     personas=models.ManyToManyField(CustomUser)
     
-
-    
-    
