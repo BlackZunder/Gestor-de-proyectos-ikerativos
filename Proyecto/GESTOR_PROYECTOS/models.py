@@ -29,12 +29,18 @@ class Tarea(models.Model):
         ('en_proceso', 'En Proceso'),
         ('finalizado', 'Finalizado'),
     ]
-    
+    PRIORIDAD_CHOICES=[
+        ('baja','Baja'),
+        ('media','Media'),
+        ('alta','Alta'),
+    ]
     nombre=models.CharField(max_length=50)
-    estado = models.CharField(max_length=50, choices=ESTADO_CHOICES, default='no_iniciado')    
+    estado = models.CharField(max_length=50, choices=ESTADO_CHOICES, default='no_iniciado')
+    prioridad=models.CharField(max_length=50,choices=PRIORIDAD_CHOICES)
     descripcion=models.TextField()
+    fecha=models.DateField(auto_now_add=True)
     personas=models.ManyToManyField(CustomUser)
-    proyecto = models.ForeignKey('Proyecto', related_name='tareas', on_delete=models.CASCADE)  # Añadido
+    proyecto = models.ForeignKey('Proyecto', related_name='tareas', on_delete=models.CASCADE)  
 
 
 
