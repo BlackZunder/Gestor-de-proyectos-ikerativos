@@ -1,75 +1,43 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar sesión</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<style>
-    img {
-        display: block;
-        max-width: 35%;
-        height: auto;
-    }
-</style>
-
 <body>
     <div class="container">
-        <div class="row m-4">
-            <div class="col-md-12 d-flex justify-content-center">
-
-                <img src="{% static 'GESTOR_PROYECTOS/LOGO.png' %}" alt="Logo">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-header text-center">
+                        <img src="{% static 'GESTOR_PROYECTOS/logo.png' %}" alt="Logo" class="img-fluid">
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <small>&copy; Ikr3ativos</small>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-center">
-                <h3>
-                    Iniciar sesión
-
-                </h3>
-            </div>
-        </div>
-
-        <div class="row m-4">
-            <div class="col-md-11 d-flex justify-content-end">
-                {% if form.errors %}
-                <p>Su nombre de usuario y contraseña no coinciden. Inténtalo de nuevo.</p>
-                {% endif %}
-                <form method="post" action="{% url 'login' %}" class="login-form">
-                    {% csrf_token %}
-
-                    <div class="mb-2">
-                        {{ form.username }}
-                    </div>
-
-                    <div>
-                        {{ form.password }}
-                    </div>
-                    <div class="row m-3">
-                    <div>
-                        <button type="submit" class="btn btn-dark">Iniciar sesión</button>
-                    </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 d-flex justify-content-center">
-                            <p>Al iniciar sesión estarías aceptando los <a href="/terms-of-service">Terms of Service</a> and <a href="/privacy-policy">Privacy Policy</a>.</p>
-                        </div>
-                    </div>
-                    <input type="hidden" name="next" value="{{ next }}">
-                </form>
-            </div>
-        </div>
-
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
-
 </html>

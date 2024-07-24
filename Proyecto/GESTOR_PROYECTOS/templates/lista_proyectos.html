@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
+{% load custom_filters %}
+
+
 {% block content %}
-<h2>Proyectos Disponibles</h2>
+<h2>Proyectos</h2>
 
 <!-- Formulario de búsqueda -->
 <form method="get" action="">
@@ -9,12 +12,20 @@
     <button type="submit">Buscar</button>
 </form>
 
-<ul>
+<div class="row">
     {% for proyecto in proyectos %}
-    <li>
-        <a href="{% url 'detalle_proyecto' proyecto.id %}">{{ proyecto.nombre }}</a>
-        <p>{{ proyecto.descripcion }}</p> <!-- Añadir descripción aquí -->
-    </li>
+    {% with colors="bg-primary bg-secondary bg-success bg-danger bg-warning bg-info bg-light " %}
+    <div class="col-md-4 mb-4">
+        <div class="card {{ colors|random_color }}">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{% url 'detalle_proyecto' proyecto.id %}" class="text-black">{{ proyecto.nombre }}</a>
+                </h5>
+                <p class="card-text">{{ proyecto.descripcion }}</p>
+            </div>
+        </div>
+    </div>
+    {% endwith %}
     {% endfor %}
-</ul>
+</div>
 {% endblock %}
