@@ -2,21 +2,82 @@
 
 {% load custom_filters %}
 
-
 {% block content %}
+<style>
+.square-card {
+    position: relative;
+    width: 90%;
+    padding-top: 40%; 
+}
+
+.square-card .card-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.square-card .card-title {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    margin: 0;
+}
+
+.square-card .card-text {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    margin: 0;
+}
+
+.search-form {
+    margin-bottom: 20px; /* Añade un margen inferior a la barra de búsqueda */
+}
+
+.card {
+    margin-bottom: 10px; /* Reduce el espacio entre las tarjetas */
+}
+
+.row {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.col-md-4 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 40%;
+}
+
+</style>
 <h2>Proyectos</h2>
 
 <!-- Formulario de búsqueda -->
-<form method="get" action="">
-    <input type="text" name="q" placeholder="Buscar proyectos..." value="{{ request.GET.q }}" aria-label="Buscar proyectos">
-    <button type="submit">Buscar</button>
+<form method="get" action="" class="search-form">
+    <div class="input-group">
+        <input class="form-control search-input" type="search" name="q" placeholder="Buscar proyectos..." value="{{ request.GET.q }}" aria-label="Buscar proyectos">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </div>
 </form>
 
 <div class="row">
     {% for proyecto in proyectos %}
     {% with colors="bg-primary bg-secondary bg-success bg-danger bg-warning bg-info bg-light " %}
     <div class="col-md-4 mb-4">
-        <div class="card {{ colors|random_color }}">
+        <div class="card square-card {{ colors|random_color }}">
             <div class="card-body">
                 <h5 class="card-title">
                     <a href="{% url 'detalle_proyecto' proyecto.id %}" class="text-black">{{ proyecto.nombre }}</a>

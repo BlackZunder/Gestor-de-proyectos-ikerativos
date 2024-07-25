@@ -1,27 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-# Create your models here.
+from django.contrib.auth.models import User
 
-class CustomUser(AbstractUser):
-    ROLES = [
-        ('jefe', 'Jefe'),
-        ('empleado', 'Empleado'),
-    ]
-    rol = models.CharField(max_length=50, choices=ROLES, default='empleado')
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='customuser_set',
-        blank=True,
-        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
-        verbose_name='groups',
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='customuser_set',
-        blank=True,
-        help_text='Specific permissions for this user.',
-        verbose_name='user permissions',
-    )
+# Create your models here.
 
 class Tarea(models.Model):
     ESTADO_CHOICES = [
@@ -39,7 +20,8 @@ class Tarea(models.Model):
     prioridad=models.CharField(max_length=50,choices=PRIORIDAD_CHOICES)
     descripcion=models.TextField()
     fecha=models.DateField(auto_now_add=True)
-    personas=models.ManyToManyField(CustomUser)
+    fecha_final = models.DateField()  
+    personas = models.ManyToManyField(User)
     proyecto = models.ForeignKey('Proyecto', related_name='tareas', on_delete=models.CASCADE)  
 
 
@@ -48,5 +30,6 @@ class Proyecto(models.Model):
     nombre=models.CharField(max_length=50)
     descripcion=models.CharField(max_length=50)
     finalizado=models.BooleanField(default=False)
-    personas=models.ManyToManyField(CustomUser)
-    
+    personas = models.ManyToManyField(User)
+    def __str__(self):
+        return self.nombre

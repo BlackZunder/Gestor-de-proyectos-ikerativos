@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Gestor de proyectos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
     <style>
         .sidebar {
             height: 100vh;
@@ -20,6 +22,9 @@
             margin-left: 280px;
             padding: 20px;
         }
+        .nav-link {
+            padding: 10px 15px; /* Reduce el padding para limitar el área clickeable */
+        }
     </style>
 </head>
 <body>
@@ -29,20 +34,17 @@
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
                 <a href="http://127.0.0.1:8000/proyectos/" class="nav-link active" aria-current="page">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                    Inicio
+                    <i class="bi bi-house-door-fill me-2"></i> Inicio
                 </a>
             </li>
             <li>
                 <a href="http://127.0.0.1:8000/proyectos/" class="nav-link text-white">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                    Proyectos
+                    <i class="bi bi-journals me-2"></i> Proyectos
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
-                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                    Tareas
+                <a href="http://127.0.0.1:8000/tareas_trabajador/" class="nav-link text-white">
+                    <i class="bi bi-card-checklist me-2"></i> Tareas
                 </a>
             </li>
         </ul>
@@ -53,9 +55,16 @@
                 <span style="margin-left: 20px;">{{ user.username }}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="#">Crear proyecto</a></li>
+                {% if request.user|has_group:"Jefe" %}
+                <li><a class="dropdown-item" href="{%url 'crear_proyecto' %}">Crear proyecto</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                {% endif %}
+                <li>
+                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                    </form>
+                </li>
             </ul>
         </div>
     </div>

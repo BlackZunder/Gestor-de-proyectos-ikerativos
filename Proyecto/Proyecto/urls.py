@@ -14,15 +14,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.contrib.auth import views as auth_views
 from django.contrib import admin
 from django.urls import path
-from GESTOR_PROYECTOS.views import CustomLoginView,register,lista_proyectos,detalle_proyecto
+from GESTOR_PROYECTOS.views import CustomLoginView,lista_proyectos, detalle_proyecto, tareas_trabajador, update_task_status,crear_proyecto,crear_tarea
 
 urlpatterns = [
     path('', CustomLoginView.as_view(), name='home'), 
     path("admin/", admin.site.urls),
     path('accounts/login/', CustomLoginView.as_view(), name='login'),
-    path('register/', register, name='register'),
     path('proyectos/', lista_proyectos, name='lista_proyectos'),
     path('proyectos/<int:proyecto_id>/', detalle_proyecto, name='detalle_proyecto'),
+    path('tareas_trabajador/', tareas_trabajador, name='tareas_trabajador'),  # Nueva ruta
+    path('tareas/update_status/<int:tarea_id>/', update_task_status, name='update_task_status'),  # Ruta para actualizar el estado de la tarea
+    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    path('crear_proyecto/', crear_proyecto, name='crear_proyecto'), # Nueva ruta para crear un proyecto
+    path('crear_tarea/<int:proyecto_id>/', crear_tarea, name='crear_tarea')  # Ajuste para aceptar proyecto_id
 ]
